@@ -1,0 +1,28 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ec-rilo/weather-app.git"
+  },
+  "author": "Edgar Carrillo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ec-rilo/weather-app/issues"
+  },
+  "homepage": "https://github.com/ec-rilo/weather-app#readme",
+  "devDependencies": {
+    "css-loader": "^6.5.0",
+    "html-loader": "^3.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.4.3",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.61.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
