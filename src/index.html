@@ -6,5 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
   </head>
-  <body></body>
+  <body>
+    <p class="error-msg title">Please enter a valid location</p>
+    <p class="title">Weather App</p>
+    <div class="form-container">
+      <form action="#" method="#" novalidate>
+        <ul class="search-container">
+          <li>
+            <div class="search-box">
+              <img
+                class="small-icon"
+                src="../src/images/icons/search-icon.png"
+                alt="search-icon"
+              />
+              <input
+                type="text"
+                id="address"
+                name="address"
+                required
+                placeholder="Enter a city"
+              />
+            </div>
+          </li>
+          <li>
+            <button class="search-btn" type="submit">Search</button>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <div class="curr-weather-icon-container"></div>
+    <div class="curr-content-container"></div>
+  </body>
 </html>
