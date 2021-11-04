@@ -177,6 +177,11 @@ body {
     height: 100vh;
   }
 
+  .container-border {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
   /* Upper Content */
 
   .title {
@@ -205,8 +210,6 @@ body {
     display: flex;
     flex-direction: row;
     background-color: green;
-    margin-left: 40px;
-    margin-right: 40px;
     height: 45px;
   }
 
@@ -269,8 +272,6 @@ body {
     align-items: center;
     border: 1px solid var(--main-color-2);
     height: 45px;
-    margin-left: 40px;
-    margin-right: 40px;
     color: var(--main-color-2);
     font-family: var(--regular-font);
     font-size: 1.4rem;
@@ -291,8 +292,6 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-left: 40px;
-    margin-right: 40px;
     height: 100%;
   }
 
@@ -306,8 +305,6 @@ body {
   .main-content-container {
     font-family: var(--light-font);
     color: var(--main-color-2);
-    margin-left: 40px;
-    margin-right: 40px;
     padding-bottom: 90px;
   }
 
@@ -336,17 +333,25 @@ body {
 }
 
 @media (max-width: 750px) {
-  .main-content-container {
-    font-family: var(--light-font);
-    color: var(--main-color-2);
+  /* Content Containers */
+
+  .container-border {
     margin-left: 40px;
     margin-right: 40px;
-    padding-bottom: 70px;
   }
 
+  /* Mid Content */
   .main-icon {
     width: 150px;
     height: 150px;
+  }
+
+  /* Lower Content */
+
+  .main-content-container {
+    font-family: var(--light-font);
+    color: var(--main-color-2);
+    padding-bottom: 70px;
   }
 
   .main-temp {
