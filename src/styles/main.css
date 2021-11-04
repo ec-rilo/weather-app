@@ -56,10 +56,10 @@ body {
 
   .error-msg {
     position: absolute;
-    top: -10%;
+    top: -100%;
     background-color: var(--error-color);
     width: 100%;
-    transition: top 1s;
+    transition: top 1s ease-in-out;
   }
 
   .error-msg.show-error {
@@ -108,7 +108,7 @@ body {
   }
 
   .search-box > img {
-    margin-right: 15px;
+    margin-right: 10px;
   }
 
   .search-btn {

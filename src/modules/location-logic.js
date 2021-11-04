@@ -37,17 +37,17 @@ let locationLogic = (() => {
     const apiKey = 'AIzaSyD_kDl3O6qjcGG3sNHWMnUyqHtjBEcHEJo';
     const city = getCity(userInput);
     const state = getState(userInput);
-    console.log(city);
-    console.log(state);
 
     try {
-      const dataResponse = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+${state}&key=${apiKey}`,
-        { mode: 'cors' }
-      );
-      const data = await dataResponse.json();
+      if (city !== '') {
+        const dataResponse = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+${state}&key=${apiKey}`,
+          { mode: 'cors' }
+        );
+        const data = await dataResponse.json();
 
-      return data;
+        return data;
+      } else return 'error';
     } catch (err) {
       alert(err);
     }
