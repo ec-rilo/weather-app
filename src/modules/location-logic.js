@@ -39,7 +39,7 @@ let locationLogic = (() => {
     const state = getState(userInput);
 
     try {
-      if (city !== '' && state !== '') {
+      if (city !== '') {
         const dataResponse = await fetch(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${city},+${state}&key=${apiKey}`,
           { mode: 'cors' }
