@@ -276,6 +276,10 @@ input::placeholder {
   cursor: pointer;
 }
 
+.search-btn:active {
+  background-color: var(--main-color-2);
+}
+
 .small-icon {
   width: 18px;
   height: 18px;
