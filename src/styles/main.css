@@ -137,6 +137,7 @@ input::placeholder {
   font-size: 1rem;
   width: 100px;
   height: 100%;
+  cursor: pointer;
 }
 
 .small-icon {
@@ -155,6 +156,16 @@ input::placeholder {
   font-family: var(--regular-font);
   font-size: 1.4rem;
   box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+}
+
+.unit-container:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.unit-container:active {
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .selected-unit {
