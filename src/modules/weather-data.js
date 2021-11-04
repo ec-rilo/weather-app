@@ -29,7 +29,7 @@ const weatherLogic = (() => {
 
   function setMainIcon(data) {
     const iconContainer = document.querySelector('.main-icon-container');
-    const icon = iconContainer.firstChild;
+    const icon = iconContainer.firstChild.nextSibling;
     icon.classList.add('main-icon');
     icon.src = data.weatherImg.src;
     icon.alt = data.weatherImg.description;
