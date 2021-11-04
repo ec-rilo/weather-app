@@ -23,7 +23,7 @@ let locationLogic = (() => {
   function getCoords(data) {
     const coords = {
       lat: data.results[0].geometry.location.lat,
-      lon: data.results[0].geometry.location.lat,
+      lon: data.results[0].geometry.location.lng,
     };
     return coords;
   }
