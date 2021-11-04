@@ -40,12 +40,28 @@ let formLogic = (() => {
     form.reset();
   });
 
-  const unitContainer = document.querySelector('.unit-container');
-  unitContainer.addEventListener('click', () => {
+  function updateUnit() {
     const impUnit = document.querySelector('#imp-unit');
     const metUnit = document.querySelector('#met-unit');
     impUnit.classList.toggle('selected-unit');
     metUnit.classList.toggle('selected-unit');
-    postData(userInput);
+  }
+
+  let pastInput = '';
+  const unitContainer = document.querySelector('.unit-container');
+  unitContainer.addEventListener('click', () => {
+    if (userInput === '' && pastInput === '') {
+      userInput = 'San Francisco, CA';
+      pastInput = userInput;
+      updateUnit();
+      postData(pastInput);
+    } else if (userInput !== '') {
+      pastInput = userInput;
+      updateUnit();
+      postData(pastInput);
+    } else {
+      updateUnit();
+      postData(pastInput);
+    }
   });
 })();
