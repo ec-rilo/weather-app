@@ -363,6 +363,9 @@ input::placeholder {
 
 @media (max-width: 1000px) {
   /* Content Containers */
+  .main-content {
+    max-width: 1000px;
+  }
 
   .right-content {
     display: none;
