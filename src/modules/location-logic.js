@@ -37,8 +37,6 @@ let locationLogic = (() => {
     const apiKey = 'AIzaSyD_kDl3O6qjcGG3sNHWMnUyqHtjBEcHEJo';
     const city = getCity(userInput);
     const state = getState(userInput);
-    console.log(city);
-    console.log(state);
 
     try {
       const dataResponse = await fetch(
