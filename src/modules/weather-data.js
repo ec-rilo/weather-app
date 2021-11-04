@@ -27,6 +27,18 @@ const weatherLogic = (() => {
     iconContainer.appendChild(icon);
   }
 
+  function formatAMPM(date) {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = ('0' + minutes).slice(-2);
+    let strTime = hours + ':' + minutes + ' ' + ampm;
+    console.log(strTime);
+    return strTime;
+  }
+
   function setMainText(data, locationData) {
     const contentContainer = document.querySelector('.main-content-container');
 
@@ -53,10 +65,9 @@ const weatherLogic = (() => {
     day.innerHTML = format(endOfDay(new Date()), 'EEEE, MMM dd');
 
     // Sets the Date
-    const date = new Date();
-    const amPM = date.getHours() >= 12 ? 'pm' : 'am';
+    const date = formatAMPM(new Date());
     const time = day.nextSibling.nextSibling;
-    time.innerHTML = `${date.getHours()}:${date.getMinutes()}${amPM}`;
+    time.innerHTML = date;
   }
 
   (async function addDefaultWeather() {
