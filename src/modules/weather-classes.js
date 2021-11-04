@@ -3,6 +3,8 @@ import sunSrc from '../images/icons/sun.png';
 import cloudSrc from '../images/icons/cloud.png';
 import rainSrc from '../images/icons/rain.png';
 import thunderSrc from '../images/icons/thunderstorm.png';
+import dangerSrc from '../images/icons/weather-danger.png';
+import fogSrc from '../images/icons/fog.png';
 
 class WeatherData {
   constructor(data) {
@@ -33,19 +35,64 @@ class WeatherData {
     let icon;
     switch (this.data.weather[0].main) {
       case 'Clear':
-        icon = createIcon(sunSrc, this.data.weather[0].description);
+        icon = {
+          src: sunSrc,
+          description: this.data.weather[0].description,
+        };
         break;
       case 'Clouds':
-        icon = createIcon(cloudSrc, this.data.weather[0].description);
+        icon = {
+          src: cloudSrc,
+          description: this.data.weather[0].description,
+        };
         break;
       case 'Thunderstorm':
-        icon = createIcon(thunderSrc, this.data.weather[0].description);
+        icon = {
+          src: thunderSrc,
+          description: this.data.weather[0].description,
+        };
         break;
       case 'Rain':
-        icon = createIcon(rainSrc, this.data.weather[0].description);
+        icon = {
+          src: rainSrc,
+          description: this.data.weather[0].description,
+        };
+        break;
+      case 'Smoke':
+        icon = {
+          src: dangerSrc,
+          description: this.data.weather[0].description,
+        };
+        break;
+      case 'Dust':
+        icon = {
+          src: dangerSrc,
+          description: this.data.weather[0].description,
+        };
+        break;
+      case 'Haze':
+        icon = {
+          src: dangerSrc,
+          description: this.data.weather[0].description,
+        };
+        break;
+      case 'Fog':
+        icon = {
+          src: fogSrc,
+          description: this.data.weather[0].description,
+        };
+        break;
+      case 'Sand':
+        icon = {
+          src: dangerSrc,
+          description: this.data.weather[0].description,
+        };
         break;
       default:
-        console.log('An error has occurred in image filtering');
+        console.log(
+          'An error has occurred in image filtering.' +
+            `"${this.data.weather[0].main}" is not a case. `
+        );
     }
     return icon;
   }
