@@ -12,15 +12,15 @@ class WeatherData {
   }
 
   get temp() {
-    return this.data.main.temp;
+    return Math.round(this.data.main.temp);
   }
 
   get maxTemp() {
-    return this.data.main.temp_max;
+    return Math.round(this.data.main.temp_max);
   }
 
   get minTemp() {
-    return this.data.main.temp_min;
+    return Math.round(this.data.main.temp_min);
   }
 
   get weather() {
