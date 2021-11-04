@@ -23,8 +23,10 @@ const weatherLogic = (() => {
 
   function setMainIcon(data) {
     const iconContainer = document.querySelector('.main-icon-container');
-    const icon = data.weatherImg;
-    iconContainer.appendChild(icon);
+    const icon = iconContainer.firstChild;
+    icon.classList.add('main-icon');
+    icon.src = data.weatherImg.src;
+    icon.alt = data.weatherImg.description;
   }
 
   function formatAMPM(date) {
@@ -35,7 +37,6 @@ const weatherLogic = (() => {
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = ('0' + minutes).slice(-2);
     let strTime = hours + ':' + minutes + ' ' + ampm;
-    console.log(strTime);
     return strTime;
   }
 
@@ -52,19 +53,17 @@ const weatherLogic = (() => {
     description.classList.add('main-desc');
     description.innerHTML = data.weatherDesc;
 
-    // Sets the City and state
+    // Sets the City and State
     const location = description.nextSibling.nextSibling;
     location.classList.add('main-city');
     location.innerHTML = locationData.results[0].formatted_address;
-    console.log(locationData);
-    // location.innerHTML = locationText;
 
     // Sets the SubContainer and Day
     const subContainer = document.querySelector('.main-subcontent-container');
     const day = subContainer.firstChild.nextSibling;
     day.innerHTML = format(endOfDay(new Date()), 'EEEE, MMM dd');
 
-    // Sets the Date
+    // Sets the Time
     const date = formatAMPM(new Date());
     const time = day.nextSibling.nextSibling;
     time.innerHTML = date;
@@ -78,10 +77,11 @@ const weatherLogic = (() => {
     setMainText(data, locationData);
   })();
 
-  const form = document.querySelector('form');
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const userInput = document.getElementById('address').value;
-    getWeather(userInput);
-  });
+  return {
+    getWeather,
+    setMainIcon,
+    setMainText,
+  };
 })();
+
+export default weatherLogic;
