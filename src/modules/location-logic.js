@@ -15,15 +15,20 @@ let locationLogic = (() => {
 
   function getCity(userInput) {
     const arrOfStr = formatLocation(userInput);
-    arrOfStr.pop();
-    const city = arrOfStr.join(' ');
-    return city;
+    if (!getState(userInput) == '') {
+      arrOfStr.pop();
+      const city = arrOfStr.join(' ');
+      return city;
+    } else {
+      const city = arrOfStr.join(' ');
+      return city;
+    }
   }
 
   function getCoords(data) {
     const coords = {
       lat: data.results[0].geometry.location.lat,
-      lon: data.results[0].geometry.location.lat,
+      lon: data.results[0].geometry.location.lng,
     };
     return coords;
   }
@@ -32,6 +37,8 @@ let locationLogic = (() => {
     const apiKey = 'AIzaSyD_kDl3O6qjcGG3sNHWMnUyqHtjBEcHEJo';
     const city = getCity(userInput);
     const state = getState(userInput);
+    console.log(city);
+    console.log(state);
 
     try {
       const dataResponse = await fetch(
