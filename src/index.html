@@ -7,37 +7,53 @@
     <title>Weather App</title>
   </head>
   <body>
-    <p class="error-msg title">Please enter a valid location</p>
-    <p class="title">Weather App</p>
-    <div class="form-container">
-      <form action="#" method="#" novalidate>
-        <ul class="search-container">
-          <li>
-            <div class="search-box">
-              <img
-                class="small-icon"
-                src="../src/images/icons/search-icon.png"
-                alt="search-icon"
-              />
-              <input
-                type="text"
-                id="address"
-                name="address"
-                required
-                placeholder="Enter a city"
-              />
-            </div>
-          </li>
-          <li>
-            <button class="search-btn" type="submit">Search</button>
-          </li>
-        </ul>
-      </form>
+    <div class="main-content">
+      <div class="upper-content">
+        <p class="error-msg title">Please enter a valid location</p>
+        <p class="title">Weather App</p>
+        <div class="form-container">
+          <form action="#" method="#" novalidate>
+            <ul class="search-container">
+              <li>
+                <div class="search-box">
+                  <img
+                    class="small-icon"
+                    src="../src/images/icons/search-icon.png"
+                    alt="search-icon"
+                  />
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    required
+                    placeholder="Enter a city"
+                  />
+                </div>
+              </li>
+              <li>
+                <button class="search-btn" type="submit">Search</button>
+              </li>
+            </ul>
+          </form>
+        </div>
+        <p class="unit-container">
+          <span id="met-unit">°C</span>&nbsp;/&nbsp;<span id="imp-unit"
+            >°F</span
+          >
+        </p>
+      </div>
+      <div class="mid-content">
+        <div class="main-icon-container"></div>
+      </div>
+      <div class="main-content-container">
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <div class="main-subcontent-container">
+          <p>Date</p>
+          <p>Time</p>
+        </div>
+      </div>
     </div>
-    <p class="unit-container">
-      <span id="met-unit">°C</span>&nbsp;/&nbsp;<span id="imp-unit">°F</span>
-    </p>
-    <div class="curr-weather-icon-container"></div>
-    <div class="curr-content-container"></div>
   </body>
 </html>
