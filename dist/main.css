@@ -278,7 +278,7 @@ body {
     box-sizing: border-box;
   }
 
-  #imp-unit {
+  .selected-unit {
     font-family: var(--bold-font);
   }
 
