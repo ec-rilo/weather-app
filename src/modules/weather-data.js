@@ -4,9 +4,15 @@ import { format } from 'date-fns';
 import { endOfDay } from 'date-fns';
 
 const weatherLogic = (() => {
-  async function getWeather(coords) {
+  function getUnits() {
+    const impUnit = document.querySelector('#imp-unit');
+    if (impUnit.classList.contains('selected-unit')) {
+      return 'imperial';
+    } else return 'metric';
+  }
+
+  async function getWeather(coords, units) {
     const apiKey = '6a7c39b80ca83ace536312969e3bfb3b';
-    const units = 'imperial';
 
     try {
       const weatherDataResponse = await fetch(
@@ -44,9 +50,12 @@ const weatherLogic = (() => {
     const contentContainer = document.querySelector('.main-content-container');
 
     // Sets the Temperature
+    const impUnit = document.querySelector('#imp-unit');
+    let unit;
+    impUnit.classList.contains('selected-unit') ? (unit = '°F') : (unit = '°C');
     const temp = contentContainer.firstChild.nextSibling;
     temp.classList.add('main-temp');
-    temp.innerHTML = data.temp;
+    temp.innerHTML = `${data.temp} ${unit}`;
 
     // Sets the Description
     const description = temp.nextSibling.nextSibling;
@@ -72,7 +81,8 @@ const weatherLogic = (() => {
   (async function addDefaultWeather() {
     const locationData = await locationLogic.getData('San Francisco, CA');
     const coords = locationLogic.getCoords(locationData);
-    const data = await getWeather(coords);
+    const units = getUnits();
+    const data = await getWeather(coords, units);
     setMainIcon(data);
     setMainText(data, locationData);
   })();
@@ -81,6 +91,7 @@ const weatherLogic = (() => {
     getWeather,
     setMainIcon,
     setMainText,
+    getUnits,
   };
 })();
 
