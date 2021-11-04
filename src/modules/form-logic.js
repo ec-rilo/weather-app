@@ -8,16 +8,31 @@ let formLogic = (() => {
     weatherLogic.setMainText(data, locationData);
   }
 
+  function postError() {
+    const error = document.querySelector('.error-msg');
+    const searchBtn = document.querySelector('.search-btn');
+    error.classList.toggle('show-error');
+    searchBtn.style.pointerEvents = 'none';
+    setTimeout(() => {
+      error.classList.toggle('show-error');
+      searchBtn.style.pointerEvents = 'auto';
+    }, 3000);
+  }
+
   async function postData(userInput) {
     const locationData = await locationLogic.getData(userInput);
-    const coords = locationLogic.getCoords(locationData);
-    const units = weatherLogic.getUnits();
-    const data = await weatherLogic.getWeather(coords, units);
-    postContent(data, locationData);
+    if (locationData !== 'error') {
+      const coords = locationLogic.getCoords(locationData);
+      const units = weatherLogic.getUnits();
+      const data = await weatherLogic.getWeather(coords, units);
+      postContent(data, locationData);
+    } else {
+      postError();
+    }
   }
 
   const form = document.querySelector('form');
-  let userInput = 'San Francisco, CA';
+  let userInput = '';
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     userInput = document.getElementById('address').value;
