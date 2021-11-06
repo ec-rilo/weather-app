@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { endOfDay } from 'date-fns';
 
 const weatherLogic = (() => {
-  async function getNewWeather(coords, units) {
+  async function getNewWeather(coords) {
     const apiKey = '6a7c39b80ca83ace536312969e3bfb3b';
 
     try {
