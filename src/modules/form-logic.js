@@ -23,8 +23,7 @@ let formLogic = (() => {
     const locationData = await locationLogic.getData(userInput);
     if (locationData !== 'error') {
       const coords = locationLogic.getCoords(locationData);
-      const units = weatherLogic.getUnits();
-      const data = await weatherLogic.getWeather(coords, units);
+      const data = await weatherLogic.getNewWeather(coords);
       postContent(data, locationData);
     } else {
       postError();
@@ -40,11 +39,17 @@ let formLogic = (() => {
     form.reset();
   });
 
-  function updateUnit() {
+  function updateUnitBtn() {
     const impUnit = document.querySelector('#imp-unit');
     const metUnit = document.querySelector('#met-unit');
     impUnit.classList.toggle('selected-unit');
     metUnit.classList.toggle('selected-unit');
+  }
+
+  function updateDisplayUnit() {
+    const weatherObj = weatherLogic.getCurrWeather();
+    const displayUnit = document.querySelector('.main-temp');
+    displayUnit.innerHTML = `${weatherObj.temp} ${weatherObj.letterUnit}`;
   }
 
   let pastInput = '';
@@ -53,15 +58,15 @@ let formLogic = (() => {
     if (userInput === '' && pastInput === '') {
       userInput = 'San Francisco, CA';
       pastInput = userInput;
-      updateUnit();
-      postData(pastInput);
+      updateUnitBtn();
+      updateDisplayUnit();
     } else if (userInput !== '') {
       pastInput = userInput;
-      updateUnit();
-      postData(pastInput);
+      updateUnitBtn();
+      updateDisplayUnit();
     } else {
-      updateUnit();
-      postData(pastInput);
+      updateUnitBtn();
+      updateDisplayUnit();
     }
   });
 })();
