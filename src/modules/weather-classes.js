@@ -7,12 +7,23 @@ import dangerSrc from '../images/icons/weather-danger.png';
 import fogSrc from '../images/icons/fog.png';
 
 class WeatherData {
-  constructor(data) {
+  constructor(data, metricData) {
     this.data = data;
+    this.metricData = metricData;
   }
 
   get temp() {
-    return Math.round(this.data.main.temp);
+    const impUnit = document.querySelector('#imp-unit');
+    if (impUnit.classList.contains('selected-unit')) {
+      return Math.round(this.data.main.temp);
+    } else return Math.round(this.metricData.main.temp);
+  }
+
+  get letterUnit() {
+    const impUnit = document.querySelector('#imp-unit');
+    if (impUnit.classList.contains('selected-unit')) {
+      return '°F';
+    } else return '°C';
   }
 
   get maxTemp() {
