@@ -1,38 +1,59 @@
 import { WeatherData } from './weather-classes';
 import locationLogic from './location-logic';
+import { createIcon } from './dom-creation';
 import { format } from 'date-fns';
 import { endOfDay } from 'date-fns';
 
 const weatherLogic = (() => {
-  function getUnits() {
-    const impUnit = document.querySelector('#imp-unit');
-    if (impUnit.classList.contains('selected-unit')) {
-      return 'imperial';
-    } else return 'metric';
-  }
-
-  async function getWeather(coords, units) {
+  async function getNewWeather(coords, units) {
     const apiKey = '6a7c39b80ca83ace536312969e3bfb3b';
 
     try {
-      const weatherDataResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&units=${units}&appid=${apiKey}`,
+      const responseImp = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&units=imperial&appid=${apiKey}`,
         { mode: 'cors' }
       );
-      const weatherData = await weatherDataResponse.json();
+      const responseMetric = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=${apiKey}`,
+        { mode: 'cors' }
+      );
+      const imperialData = await responseImp.json();
+      const metricData = await responseMetric.json();
+      currWeather = new WeatherData(imperialData, metricData);
 
-      return new WeatherData(weatherData);
+      return new WeatherData(imperialData, metricData);
     } catch (err) {
       alert('Looks like you input a incorrect value.');
     }
   }
 
   function setMainIcon(data) {
-    const iconContainer = document.querySelector('.main-icon-container');
-    const icon = iconContainer.firstChild.nextSibling;
-    icon.classList.add('main-icon');
-    icon.src = data.weatherImg.src;
-    icon.alt = data.weatherImg.description;
+    const iconContainer = document.querySelector('.img-container');
+    if (iconContainer.firstChild === null) {
+      const newIcon = createIcon(
+        data.weatherImg.src,
+        data.weatherImg.description
+      );
+      iconContainer.appendChild(newIcon);
+      setTimeout(() => {
+        newIcon.classList.add('show-icon');
+      }, 10);
+    } else {
+      const prevIcon = document.querySelector('.main-icon');
+      prevIcon.classList.toggle('hide-icon');
+
+      const newIcon = createIcon(
+        data.weatherImg.src,
+        data.weatherImg.description
+      );
+      iconContainer.appendChild(newIcon);
+      setTimeout(() => {
+        newIcon.classList.add('show-icon');
+      }, 1000);
+      setTimeout(() => {
+        prevIcon.remove();
+      }, 1000);
+    }
   }
 
   function formatAMPM(date) {
@@ -78,20 +99,25 @@ const weatherLogic = (() => {
     time.innerHTML = date;
   }
 
+  let currWeather;
   (async function addDefaultWeather() {
     const locationData = await locationLogic.getData('San Francisco, CA');
     const coords = locationLogic.getCoords(locationData);
-    const units = getUnits();
-    const data = await getWeather(coords, units);
+    const data = await getNewWeather(coords);
     setMainIcon(data);
     setMainText(data, locationData);
+    currWeather = data;
   })();
 
+  function getCurrWeather() {
+    return currWeather;
+  }
+
   return {
-    getWeather,
+    getNewWeather,
     setMainIcon,
     setMainText,
-    getUnits,
+    getCurrWeather,
   };
 })();
 
