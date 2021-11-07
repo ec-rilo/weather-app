@@ -8,14 +8,16 @@ import fogSrc from '../images/icons/fog.png';
 class WeatherForecast {
   #maxTempArr;
   #minTempArr;
-  #weatherNameArr;
+  #iconIdArr;
   #weatherDescripArr;
+  #weatherNameArr;
   // met = Metric, imp = Imperial
   constructor(impData, metData) {
     this.impData = impData;
     this.metData = metData;
     this.#maxTempArr = [];
     this.#minTempArr = [];
+    this.#iconIdArr = [];
     this.#weatherNameArr = [];
     this.#weatherDescripArr = [];
   }
@@ -43,6 +45,7 @@ class WeatherForecast {
     }
 
     let maxTemp = tempArr[0];
+    this.#maxTempArr[0] = maxTemp;
     for (let i = 0; i < 40; ++i) {
       // Checking max temp for first day.
       if (i <= 4) {
@@ -114,6 +117,24 @@ class WeatherForecast {
     }
   }
 
+  #minUpdate1(privIndex, i, tempArr, iconIdArr, imgDescriptionArr) {
+    this.#minTempArr[privIndex] = tempArr[i];
+    this.#iconIdArr[privIndex] = iconIdArr[i];
+    this.#weatherDescripArr[privIndex] = imgDescriptionArr[i];
+  }
+
+  #minUpdate2(privIndex, nextIndex, minTemp, iconIdArr, imgDescriptionArr) {
+    this.#minTempArr[privIndex] = minTemp;
+    this.#iconIdArr[privIndex] = iconIdArr[nextIndex];
+    this.#weatherDescripArr[privIndex + 1] = imgDescriptionArr[nextIndex];
+  }
+
+  #initMinDefaults(index, tempArr, iconIdArr, imgDescriptionArr) {
+    this.#minTempArr[index] = tempArr[index];
+    this.#iconIdArr[index] = iconIdArr[index];
+    this.#weatherDescripArr[index] = imgDescriptionArr[index];
+  }
+
   // The below method also updates weather description and name array.
   #filterMinTemp() {
     let tempArr = [];
@@ -121,31 +142,25 @@ class WeatherForecast {
       tempArr.push(Math.round(this.impData.list[i].main.temp_min));
     }
 
-    let imgNameArr = [];
+    let iconIdArr = [];
     let imgDescriptionArr = [];
     for (let i = 0; i < 40; ++i) {
-      imgNameArr.push(this.impData.list[i].weather[0].main);
+      iconIdArr.push(this.impData.list[i].weather[0].icon);
       imgDescriptionArr.push(this.impData.list[i].weather[0].description);
     }
 
     let minTemp = tempArr[0];
-    this.#minTempArr[0] = tempArr[0];
-    this.#weatherNameArr[0] = imgNameArr[0];
-    this.#weatherDescripArr[0] = imgDescriptionArr[0];
+    this.#initMinDefaults(0, tempArr, iconIdArr, imgDescriptionArr);
     for (let i = 0; i < 40; ++i) {
       // Checking min temp for first day.
       if (i <= 4) {
         if (minTemp > tempArr[i]) {
           minTemp = tempArr[i];
-          this.#minTempArr[0] = tempArr[i];
-          this.#weatherNameArr[0] = imgNameArr[i];
-          this.#weatherDescripArr[0] = imgDescriptionArr[i];
+          this.#minUpdate1(0, i, tempArr, iconIdArr, imgDescriptionArr);
         }
         if (i === 4) {
           minTemp = tempArr[5];
-          this.#minTempArr[1] = minTemp;
-          this.#weatherNameArr[1] = imgNameArr[5];
-          this.#weatherDescripArr[1] = imgDescriptionArr[5];
+          this.#minUpdate2(1, 5, minTemp, iconIdArr, imgDescriptionArr);
         }
       }
 
@@ -153,31 +168,22 @@ class WeatherForecast {
       else if (i <= 12) {
         if (minTemp > tempArr[i]) {
           minTemp = tempArr[i];
-          this.#minTempArr[1] = tempArr[i];
-          this.#weatherNameArr[1] = imgNameArr[i];
-          this.#weatherDescripArr[1] = imgDescriptionArr[i];
+          this.#minUpdate1(1, i, tempArr, iconIdArr, imgDescriptionArr);
         }
         if (i === 12) {
           minTemp = tempArr[13];
-          this.#minTempArr[2] = minTemp;
-          this.#weatherNameArr[2] = imgNameArr[13];
-          this.#weatherDescripArr[2] = imgDescriptionArr[13];
+          this.#minUpdate2(2, 13, minTemp, iconIdArr, imgDescriptionArr);
         }
       }
-
       // Checking min temp for third day.
       else if (i <= 20) {
         if (minTemp > tempArr[i]) {
           minTemp = tempArr[i];
-          this.#minTempArr[2] = tempArr[i];
-          this.#weatherNameArr[2] = imgNameArr[i];
-          this.#weatherDescripArr[2] = imgDescriptionArr[i];
+          this.#minUpdate1(2, i, tempArr, iconIdArr, imgDescriptionArr);
         }
         if (i === 20) {
           minTemp = tempArr[21];
-          this.#minTempArr[3] = minTemp;
-          this.#weatherNameArr[3] = imgNameArr[21];
-          this.#weatherDescripArr[3] = imgDescriptionArr[21];
+          this.#minUpdate2(3, 21, minTemp, iconIdArr, imgDescriptionArr);
         }
       }
 
@@ -185,15 +191,11 @@ class WeatherForecast {
       else if (i <= 28) {
         if (minTemp > tempArr[i]) {
           minTemp = tempArr[i];
-          this.#minTempArr[3] = tempArr[i];
-          this.#weatherNameArr[3] = imgNameArr[i];
-          this.#weatherDescripArr[3] = imgDescriptionArr[i];
+          this.#minUpdate1(3, i, tempArr, iconIdArr, imgDescriptionArr);
         }
         if (i === 28) {
           minTemp = tempArr[29];
-          this.#minTempArr[4] = minTemp;
-          this.#weatherNameArr[4] = imgNameArr[29];
-          this.#weatherDescripArr[4] = imgDescriptionArr[29];
+          this.#minUpdate2(4, 29, minTemp, iconIdArr, imgDescriptionArr);
         }
       }
 
@@ -201,25 +203,19 @@ class WeatherForecast {
       else if (i <= 36) {
         if (minTemp > tempArr[i]) {
           minTemp = tempArr[i];
-          this.#minTempArr[4] = tempArr[i];
-          this.#weatherNameArr[4] = imgNameArr[i];
-          this.#weatherDescripArr[4] = imgDescriptionArr[i];
+          this.#minUpdate1(4, i, tempArr, iconIdArr, imgDescriptionArr);
         }
         if (i === 36) {
           minTemp = tempArr[37];
-          this.#minTempArr[5] = minTemp;
-          this.#weatherNameArr[5] = imgNameArr[37];
-          this.#weatherDescripArr[5] = imgDescriptionArr[37];
+          this.#minUpdate2(5, 37, minTemp, iconIdArr, imgDescriptionArr);
         }
       }
 
       // Checking min temp for sixth day.
-      else if (i <= 39) {
+      if (i <= 39) {
         if (minTemp > tempArr[i]) {
           minTemp = tempArr[i];
-          this.#minTempArr[5] = tempArr[i];
-          this.#weatherNameArr[5] = imgNameArr[i];
-          this.#weatherDescripArr[5] = imgDescriptionArr[i];
+          this.#minUpdate1(5, i, tempArr, iconIdArr, imgDescriptionArr);
         }
       }
     }
@@ -277,70 +273,133 @@ class WeatherForecast {
     }
   }
 
+  #importAllImgs(r) {
+    return r.keys().map(r);
+  }
+
   weatherImg(index) {
-    const weatherName = this.#weatherNameArr[index];
-    const weatherDescrip = this.#weatherDescripArr[index];
+    this.#filterMinTemp();
+    const images = this.#importAllImgs(
+      require.context(
+        '../images/icons/weather-icons',
+        false,
+        /\.(png|jpe?g|svg)$/
+      )
+    );
+    const info = this.#weatherDescripArr[index];
+    const iconId = this.#iconIdArr[index];
     let icon;
-    switch (weatherName) {
-      case 'Clear':
+    switch (iconId) {
+      case '01d':
         icon = {
-          src: sunSrc,
-          description: weatherDescrip,
+          src: images[0],
+          description: info,
         };
         break;
-      case 'Clouds':
+      case '01n':
         icon = {
-          src: cloudSrc,
-          description: weatherDescrip,
+          src: images[1],
+          description: info,
         };
         break;
-      case 'Thunderstorm':
+      case '02d':
         icon = {
-          src: thunderSrc,
-          description: weatherDescrip,
+          src: images[3],
+          description: info,
         };
         break;
-      case 'Rain':
+      case '02n':
         icon = {
-          src: rainSrc,
-          description: weatherDescrip,
+          src: images[4],
+          description: info,
         };
         break;
-      case 'Smoke':
+      case '03d':
         icon = {
-          src: dangerSrc,
-          description: weatherDescrip,
+          src: images[5],
+          description: info,
         };
         break;
-      case 'Dust':
+      case '03n':
         icon = {
-          src: dangerSrc,
-          description: weatherDescrip,
+          src: images[6],
+          description: info,
         };
         break;
-      case 'Haze':
+      case '04d':
         icon = {
-          src: dangerSrc,
-          description: weatherDescrip,
+          src: images[7],
+          description: info,
         };
         break;
-      case 'Fog':
+      case '04n':
         icon = {
-          src: fogSrc,
-          description: weatherDescrip,
+          src: images[8],
+          description: info,
         };
         break;
-      case 'Sand':
+      case '09d':
         icon = {
-          src: dangerSrc,
-          description: weatherDescrip,
+          src: images[9],
+          description: info,
+        };
+        break;
+      case '09n':
+        icon = {
+          src: images[10],
+          description: info,
+        };
+        break;
+      case '10d':
+        icon = {
+          src: images[11],
+          description: info,
+        };
+        break;
+      case '10n':
+        icon = {
+          src: images[12],
+          description: info,
+        };
+        break;
+      case '11d':
+        icon = {
+          src: images[13],
+          description: info,
+        };
+        break;
+      case '11n':
+        icon = {
+          src: images[14],
+          description: info,
+        };
+        break;
+      case '13d':
+        icon = {
+          src: images[15],
+          description: info,
+        };
+        break;
+      case '13n':
+        icon = {
+          src: images[16],
+          description: info,
+        };
+        break;
+      case '50d':
+        icon = {
+          src: images[17],
+          description: info,
+        };
+        break;
+      case '50n':
+        icon = {
+          src: images[18],
+          description: info,
         };
         break;
       default:
-        console.log(
-          'An error has occurred in image filtering.' +
-            `"${this.data.weather[0].main}" is not a case. `
-        );
+        console.log('An error has occurred in image filtering.');
     }
     return icon;
   }
