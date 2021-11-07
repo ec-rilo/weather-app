@@ -39,34 +39,25 @@ const weatherWeek = (() => {
   }
 
   function popForecast(data) {
-    // Populates all elements with forecast data.
-    // populates the second child of a weekItem with the max temp.
-    // populates the third child of the weekItem with the min temp.
-    // populates the last child (4th) of the weekItem with the weather.
-
     const impUnit = document.querySelector('#imp-unit');
     const weekItemsArr = [...document.querySelectorAll('.week-item')];
-    if (impUnit.classList.contains('selected-unit')) {
-      // populate with imperial data.
-      for (let i = 0; i < 6; ++i) {
-        let maxTempElem =
-          weekItemsArr[i].firstChild.nextSibling.nextSibling.nextSibling;
-        maxTempElem.innerHTML = data.impMaxTemp(i);
+    // populate with imperial data.
+    for (let i = 0; i < 6; ++i) {
+      let maxTempElem =
+        weekItemsArr[i].firstChild.nextSibling.nextSibling.nextSibling;
+      maxTempElem.innerHTML = data.maxTemp(i);
 
-        let minTempElem =
-          weekItemsArr[i].firstChild.nextSibling.nextSibling.nextSibling
-            .nextSibling.nextSibling;
-        minTempElem.innerHTML = data.impMinTemp(i);
+      let minTempElem =
+        weekItemsArr[i].firstChild.nextSibling.nextSibling.nextSibling
+          .nextSibling.nextSibling;
+      minTempElem.innerHTML = data.minTemp(i);
 
-        let img =
-          weekItemsArr[i].firstChild.nextSibling.nextSibling.nextSibling
-            .nextSibling.nextSibling.nextSibling.nextSibling;
-        let imgObj = data.weatherImg(i);
-        img.src = imgObj.src;
-        img.alt = imgObj.description;
-      }
-    } else {
-      // populate with metric data.
+      let img =
+        weekItemsArr[i].firstChild.nextSibling.nextSibling.nextSibling
+          .nextSibling.nextSibling.nextSibling.nextSibling;
+      let imgObj = data.weatherImg(i);
+      img.src = imgObj.src;
+      img.alt = imgObj.description;
     }
   }
 
@@ -88,9 +79,17 @@ const weatherWeek = (() => {
     currForecast = data;
   })();
 
+  async function updateForecast(userInput) {
+    const locationData = await locationLogic.getData(userInput);
+    const coords = locationLogic.getCoords(locationData);
+    const data = await getNewForecast(coords);
+    popWeekContainer(data);
+  }
+
   return {
     getCurrForecast,
     popWeekContainer,
+    updateForecast,
   };
 })();
 
