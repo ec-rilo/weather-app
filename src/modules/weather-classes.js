@@ -59,7 +59,6 @@ class WeatherData {
     const info = this.data.weather[0].description;
     const iconId = this.data.weather[0].icon;
     let icon;
-    console.log(images[15]);
     switch (iconId) {
       case '01d':
         icon = {
