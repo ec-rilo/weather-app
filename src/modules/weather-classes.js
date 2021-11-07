@@ -7,9 +7,11 @@ import dangerSrc from '../images/icons/weather-danger.png';
 import fogSrc from '../images/icons/fog.png';
 
 class WeatherData {
+  #iconIdArr;
   constructor(data, metricData) {
     this.data = data;
     this.metricData = metricData;
+    this.#iconIdArr = [];
   }
 
   get temp() {
@@ -42,68 +44,200 @@ class WeatherData {
     return this.data.weather[0].description;
   }
 
+  // get weatherImg() {
+  //   console.log(this.data);
+  //   let icon;
+  //   switch (this.data.weather[0].main) {
+  //     case 'Clear':
+  //       icon = {
+  //         src: sunSrc,
+  //         description: this.data.weather[0].description,
+  //       };
+  //       break;
+  //     case 'Clouds':
+  //       icon = {
+  //         src: cloudSrc,
+  //         description: this.data.weather[0].description,
+  //       };
+  //       break;
+  //     case 'Thunderstorm':
+  //       icon = {
+  //         src: thunderSrc,
+  //         description: this.data.weather[0].description,
+  //       };
+  //       break;
+  //     case 'Rain':
+  //       icon = {
+  //         src: rainSrc,
+  //         description: this.data.weather[0].description,
+  //       };
+  //       break;
+  //     case 'Smoke':
+  //       icon = {
+  //         src: dangerSrc,
+  //         description: this.data.weather[0].description,
+  //       };
+  //       break;
+  //     case 'Dust':
+  //       icon = {
+  //         src: dangerSrc,
+  //         description: this.data.weather[0].description,
+  //       };
+  //       break;
+  //     case 'Haze':
+  //       icon = {
+  //         src: dangerSrc,
+  //         description: this.data.weather[0].description,
+  //       };
+  //       break;
+  //     case 'Fog':
+  //       icon = {
+  //         src: fogSrc,
+  //         description: this.data.weather[0].description,
+  //       };
+  //       break;
+  //     case 'Sand':
+  //       icon = {
+  //         src: dangerSrc,
+  //         description: this.data.weather[0].description,
+  //       };
+  //       break;
+  //     default:
+  //       console.log(
+  //         'An error has occurred in image filtering.' +
+  //           `"${this.data.weather[0].main}" is not a case. `
+  //       );
+  //   }
+  //   return icon;
+  // }
+
+  #importAllImgs(r) {
+    return r.keys().map(r);
+  }
+
   get weatherImg() {
+    const images = this.#importAllImgs(
+      require.context(
+        '../images/icons/weather-icons',
+        false,
+        /\.(png|jpe?g|svg)$/
+      )
+    );
+    const info = this.data.weather[0].description;
+    const iconId = this.data.weather[0].icon;
     let icon;
-    switch (this.data.weather[0].main) {
-      case 'Clear':
+    console.log(images[15]);
+    switch (iconId) {
+      case '01d':
         icon = {
-          src: sunSrc,
-          description: this.data.weather[0].description,
+          src: images[0],
+          description: info,
         };
         break;
-      case 'Clouds':
+      case '01n':
         icon = {
-          src: cloudSrc,
-          description: this.data.weather[0].description,
+          src: images[1],
+          description: info,
         };
         break;
-      case 'Thunderstorm':
+      case '02d':
         icon = {
-          src: thunderSrc,
-          description: this.data.weather[0].description,
+          src: images[2],
+          description: info,
         };
         break;
-      case 'Rain':
+      case '02n':
         icon = {
-          src: rainSrc,
-          description: this.data.weather[0].description,
+          src: images[3],
+          description: info,
         };
         break;
-      case 'Smoke':
+      case '03d':
         icon = {
-          src: dangerSrc,
-          description: this.data.weather[0].description,
+          src: images[4],
+          description: info,
         };
         break;
-      case 'Dust':
+      case '03n':
         icon = {
-          src: dangerSrc,
-          description: this.data.weather[0].description,
+          src: images[5],
+          description: info,
         };
         break;
-      case 'Haze':
+      case '04d':
         icon = {
-          src: dangerSrc,
-          description: this.data.weather[0].description,
+          src: images[6],
+          description: info,
         };
         break;
-      case 'Fog':
+      case '04n':
         icon = {
-          src: fogSrc,
-          description: this.data.weather[0].description,
+          src: images[7],
+          description: info,
         };
         break;
-      case 'Sand':
+      case '09d':
         icon = {
-          src: dangerSrc,
-          description: this.data.weather[0].description,
+          src: images[8],
+          description: info,
+        };
+        break;
+      case '09n':
+        icon = {
+          src: images[9],
+          description: info,
+        };
+        break;
+      case '10d':
+        icon = {
+          src: images[10],
+          description: info,
+        };
+        break;
+      case '10n':
+        icon = {
+          src: images[11],
+          description: info,
+        };
+        break;
+      case '11d':
+        icon = {
+          src: images[12],
+          description: info,
+        };
+        break;
+      case '11n':
+        icon = {
+          src: images[13],
+          description: info,
+        };
+        break;
+      case '13d':
+        icon = {
+          src: images[14],
+          description: info,
+        };
+        break;
+      case '13n':
+        icon = {
+          src: images[15],
+          description: info,
+        };
+        break;
+      case '50d':
+        icon = {
+          src: images[16],
+          description: info,
+        };
+        break;
+      case '50n':
+        icon = {
+          src: images[17],
+          description: info,
         };
         break;
       default:
-        console.log(
-          'An error has occurred in image filtering.' +
-            `"${this.data.weather[0].main}" is not a case. `
-        );
+        console.log('An error has occurred in image filtering.');
     }
     return icon;
   }
