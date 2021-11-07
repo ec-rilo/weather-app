@@ -47,8 +47,14 @@ class WeatherForecast {
 
   #filterMaxTemp() {
     let tempArr = [];
-    for (let i = 0; i < 40; ++i) {
-      tempArr.push(Math.round(this.impData.list[i].main.temp_max));
+    if (this.letterUnit === '°F') {
+      for (let i = 0; i < 40; ++i) {
+        tempArr.push(Math.round(this.impData.list[i].main.temp_max));
+      }
+    } else {
+      for (let i = 0; i < 40; ++i) {
+        tempArr.push(Math.round(this.metData.list[i].main.temp_max));
+      }
     }
 
     let maxTemp = tempArr[0];
@@ -145,8 +151,14 @@ class WeatherForecast {
   // The below method also updates weather description and name array.
   #filterMinTemp() {
     let tempArr = [];
-    for (let i = 0; i < 40; ++i) {
-      tempArr.push(Math.round(this.impData.list[i].main.temp_min));
+    if (this.letterUnit === '°F') {
+      for (let i = 0; i < 40; ++i) {
+        tempArr.push(Math.round(this.impData.list[i].main.temp_min));
+      }
+    } else {
+      for (let i = 0; i < 40; ++i) {
+        tempArr.push(Math.round(this.metData.list[i].main.temp_min));
+      }
     }
 
     let iconIdArr = [];
