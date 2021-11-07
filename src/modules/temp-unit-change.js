@@ -14,10 +14,25 @@ function updateDisplayUnit() {
   displayUnit.innerHTML = `${weatherObj.temp} ${weatherObj.letterUnit}`;
 }
 
+function updateForecast() {
+  const weekItemsArr = [...document.querySelectorAll('.week-item')];
+  const data = weatherWeek.getCurrForecast();
+
+  for (let i = 0; i < 6; ++i) {
+    let maxTempElem =
+      weekItemsArr[i].firstChild.nextSibling.nextSibling.nextSibling;
+    maxTempElem.innerHTML = data.maxTemp(i);
+
+    let minTempElem =
+      weekItemsArr[i].firstChild.nextSibling.nextSibling.nextSibling.nextSibling
+        .nextSibling;
+    minTempElem.innerHTML = data.minTemp(i);
+  }
+}
+
 const unitContainer = document.querySelector('.unit-container');
 unitContainer.addEventListener('click', () => {
   updateUnitBtn();
   updateDisplayUnit();
-  const forecastData = weatherWeek.getCurrForecast();
-  weatherWeek.popWeekContainer(data);
+  updateForecast();
 });
