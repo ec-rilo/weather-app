@@ -129,6 +129,9 @@ class WeatherForecast {
     }
 
     let minTemp = tempArr[0];
+    this.#minTempArr[0] = tempArr[0];
+    this.#weatherNameArr[0] = imgNameArr[0];
+    this.#weatherDescripArr[0] = imgDescriptionArr[0];
     for (let i = 0; i < 40; ++i) {
       // Checking min temp for first day.
       if (i <= 4) {
