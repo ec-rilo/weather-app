@@ -22,6 +22,13 @@ class WeatherForecast {
     this.#weatherDescripArr = [];
   }
 
+  get letterUnit() {
+    const impUnit = document.querySelector('#imp-unit');
+    if (impUnit.classList.contains('selected-unit')) {
+      return '°F';
+    } else return '°C';
+  }
+
   /* IMPORTANT
    *
    * The reason the filters go in intervals is because in the list
@@ -221,52 +228,68 @@ class WeatherForecast {
     }
   }
 
-  impMaxTemp(date) {
+  #getMaxTemp(index) {
+    let maxTemp;
+    this.letterUnit === '°F'
+      ? (maxTemp = `${this.#maxTempArr[index]} °F`)
+      : (maxTemp = `${this.#maxTempArr[index]} °C`);
+    return maxTemp;
+  }
+
+  maxTemp(date) {
     this.#filterMaxTemp();
     switch (date) {
       case 0:
-        return `${this.#maxTempArr[0]} °F`;
+        return this.#getMaxTemp(0);
         break;
       case 1:
-        return `${this.#maxTempArr[1]} °F`;
+        return this.#getMaxTemp(1);
         break;
       case 2:
-        return `${this.#maxTempArr[2]} °F`;
+        return this.#getMaxTemp(2);
         break;
       case 3:
-        return `${this.#maxTempArr[3]} °F`;
+        return this.#getMaxTemp(3);
         break;
       case 4:
-        return `${this.#maxTempArr[4]} °F`;
+        return this.#getMaxTemp(4);
         break;
       case 5:
-        return `${this.#maxTempArr[5]} °F`;
+        return this.#getMaxTemp(5);
         break;
       default:
         console.log('please enter a valid integer value (0 - 5)');
     }
   }
 
-  impMinTemp(date) {
+  #getMinTemp(index) {
+    let minTemp;
+    this.letterUnit === '°F'
+      ? (minTemp = `${this.#minTempArr[index]} °F`)
+      : (minTemp = `${this.#minTempArr[index]} °C`);
+    return minTemp;
+  }
+
+  minTemp(date) {
     this.#filterMinTemp();
     switch (date) {
       case 0:
-        return `${this.#minTempArr[0]} °F`;
+        return this.#getMinTemp(0);
         break;
       case 1:
-        return `${this.#minTempArr[1]} °F`;
+        return this.#getMinTemp(1);
         break;
       case 2:
-        return `${this.#minTempArr[2]} °F`;
+        return this.#getMinTemp(2);
         break;
       case 3:
-        return `${this.#minTempArr[3]} °F`;
+        return this.#getMinTemp(3);
         break;
       case 4:
-        return `${this.#minTempArr[4]} °F`;
+        return this.#getMinTemp(4);
         break;
       case 5:
-        return `${this.#minTempArr[5]} °F`;
+        return this.#getMinTemp(5);
         break;
       default:
         console.log('please enter a valid integer value (0 - 5)');
