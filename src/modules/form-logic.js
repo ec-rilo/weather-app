@@ -1,6 +1,6 @@
 import weatherLogic from './weather-data';
 import locationLogic from './location-logic';
-import { WeatherData } from './weather-classes';
+import weatherWeek from './forecast-data';
 
 let formLogic = (() => {
   function postContent(data, locationData) {
@@ -36,6 +36,7 @@ let formLogic = (() => {
     event.preventDefault();
     userInput = document.getElementById('address').value;
     postData(userInput);
+    weatherWeek.updateForecast(userInput);
     form.reset();
   });
 })();
