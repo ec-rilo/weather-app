@@ -1,7 +1,6 @@
 import WeatherForecast from './forecast-class';
 import locationLogic from './location-logic';
 import { format } from 'date-fns';
-import { endOfDay } from 'date-fns';
 
 // ** pop means "populate" **
 const weatherWeek = (() => {
