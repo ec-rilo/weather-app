@@ -206,6 +206,7 @@ body {
   background-color: var(--error-color);
   width: 100%;
   transition: top 1s ease-in-out;
+  z-index: 99;
 }
 
 .error-msg.show-error {
@@ -506,11 +507,12 @@ input::placeholder {
   }
 
   .error-msg {
-    position: absolute;
+    position: fixed;
     top: -100%;
     background-color: var(--error-color);
     width: 100%;
     transition: top 1s ease-in-out;
+    z-index: 99;
   }
 
   .error-msg.show-error {
