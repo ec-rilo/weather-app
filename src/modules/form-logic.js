@@ -21,13 +21,9 @@ let formLogic = (() => {
 
   async function postData(userInput) {
     const locationData = await locationLogic.getData(userInput);
-    if (locationData !== 'error') {
-      const coords = locationLogic.getCoords(locationData);
-      const data = await weatherLogic.getNewWeather(coords);
-      postContent(data, locationData);
-    } else {
-      postError();
-    }
+    const coords = locationLogic.getCoords(locationData);
+    const data = await weatherLogic.getNewWeather(coords);
+    postContent(data, locationData);
   }
 
   const form = document.querySelector('form');
@@ -35,8 +31,13 @@ let formLogic = (() => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     userInput = document.getElementById('address').value;
-    postData(userInput);
-    weatherWeek.updateForecast(userInput);
+
+    if (userInput !== '') {
+      postData(userInput);
+      weatherWeek.updateForecast(userInput);
+    } else {
+      postError();
+    }
     form.reset();
   });
 })();
