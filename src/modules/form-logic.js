@@ -1,6 +1,6 @@
 import weatherLogic from './weather-data';
 import locationLogic from './location-logic';
-import { WeatherData } from './weather-classes';
+import weatherWeek from './forecast-data';
 
 let formLogic = (() => {
   function postContent(data, locationData) {
@@ -21,13 +21,9 @@ let formLogic = (() => {
 
   async function postData(userInput) {
     const locationData = await locationLogic.getData(userInput);
-    if (locationData !== 'error') {
-      const coords = locationLogic.getCoords(locationData);
-      const data = await weatherLogic.getNewWeather(coords);
-      postContent(data, locationData);
-    } else {
-      postError();
-    }
+    const coords = locationLogic.getCoords(locationData);
+    const data = await weatherLogic.getNewWeather(coords);
+    postContent(data, locationData);
   }
 
   const form = document.querySelector('form');
@@ -35,38 +31,13 @@ let formLogic = (() => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     userInput = document.getElementById('address').value;
-    postData(userInput);
-    form.reset();
-  });
 
-  function updateUnitBtn() {
-    const impUnit = document.querySelector('#imp-unit');
-    const metUnit = document.querySelector('#met-unit');
-    impUnit.classList.toggle('selected-unit');
-    metUnit.classList.toggle('selected-unit');
-  }
-
-  function updateDisplayUnit() {
-    const weatherObj = weatherLogic.getCurrWeather();
-    const displayUnit = document.querySelector('.main-temp');
-    displayUnit.innerHTML = `${weatherObj.temp} ${weatherObj.letterUnit}`;
-  }
-
-  let pastInput = '';
-  const unitContainer = document.querySelector('.unit-container');
-  unitContainer.addEventListener('click', () => {
-    if (userInput === '' && pastInput === '') {
-      userInput = 'San Francisco, CA';
-      pastInput = userInput;
-      updateUnitBtn();
-      updateDisplayUnit();
-    } else if (userInput !== '') {
-      pastInput = userInput;
-      updateUnitBtn();
-      updateDisplayUnit();
+    if (userInput !== '') {
+      postData(userInput);
+      weatherWeek.updateForecast(userInput);
     } else {
-      updateUnitBtn();
-      updateDisplayUnit();
+      postError();
     }
+    form.reset();
   });
 })();
