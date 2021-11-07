@@ -38,35 +38,4 @@ let formLogic = (() => {
     postData(userInput);
     form.reset();
   });
-
-  function updateUnitBtn() {
-    const impUnit = document.querySelector('#imp-unit');
-    const metUnit = document.querySelector('#met-unit');
-    impUnit.classList.toggle('selected-unit');
-    metUnit.classList.toggle('selected-unit');
-  }
-
-  function updateDisplayUnit() {
-    const weatherObj = weatherLogic.getCurrWeather();
-    const displayUnit = document.querySelector('.main-temp');
-    displayUnit.innerHTML = `${weatherObj.temp} ${weatherObj.letterUnit}`;
-  }
-
-  let pastInput = '';
-  const unitContainer = document.querySelector('.unit-container');
-  unitContainer.addEventListener('click', () => {
-    if (userInput === '' && pastInput === '') {
-      userInput = 'San Francisco, CA';
-      pastInput = userInput;
-      updateUnitBtn();
-      updateDisplayUnit();
-    } else if (userInput !== '') {
-      pastInput = userInput;
-      updateUnitBtn();
-      updateDisplayUnit();
-    } else {
-      updateUnitBtn();
-      updateDisplayUnit();
-    }
-  });
 })();
