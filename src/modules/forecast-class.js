@@ -10,7 +10,6 @@ class WeatherForecast {
   #minTempArr;
   #iconIdArr;
   #weatherDescripArr;
-  #weatherNameArr;
   // met = Metric, imp = Imperial
   constructor(impData, metData) {
     this.impData = impData;
@@ -18,7 +17,6 @@ class WeatherForecast {
     this.#maxTempArr = [];
     this.#minTempArr = [];
     this.#iconIdArr = [];
-    this.#weatherNameArr = [];
     this.#weatherDescripArr = [];
   }
 
@@ -339,97 +337,97 @@ class WeatherForecast {
         break;
       case '02d':
         icon = {
-          src: images[3],
+          src: images[2],
           description: info,
         };
         break;
       case '02n':
         icon = {
-          src: images[4],
+          src: images[3],
           description: info,
         };
         break;
       case '03d':
         icon = {
-          src: images[5],
+          src: images[4],
           description: info,
         };
         break;
       case '03n':
         icon = {
-          src: images[6],
+          src: images[5],
           description: info,
         };
         break;
       case '04d':
         icon = {
-          src: images[7],
+          src: images[6],
           description: info,
         };
         break;
       case '04n':
         icon = {
-          src: images[8],
+          src: images[7],
           description: info,
         };
         break;
       case '09d':
         icon = {
-          src: images[9],
+          src: images[8],
           description: info,
         };
         break;
       case '09n':
         icon = {
-          src: images[10],
+          src: images[9],
           description: info,
         };
         break;
       case '10d':
         icon = {
-          src: images[11],
+          src: images[10],
           description: info,
         };
         break;
       case '10n':
         icon = {
-          src: images[12],
+          src: images[11],
           description: info,
         };
         break;
       case '11d':
         icon = {
-          src: images[13],
+          src: images[12],
           description: info,
         };
         break;
       case '11n':
         icon = {
-          src: images[14],
+          src: images[13],
           description: info,
         };
         break;
       case '13d':
         icon = {
-          src: images[15],
+          src: images[14],
           description: info,
         };
         break;
       case '13n':
         icon = {
-          src: images[16],
+          src: images[15],
           description: info,
         };
         break;
       case '50d':
         icon = {
-          src: images[17],
+          src: images[16],
           description: info,
         };
         break;
       case '50n':
         icon = {
-          src: images[18],
+          src: images[17],
           description: info,
         };
         break;
